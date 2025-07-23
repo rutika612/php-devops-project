@@ -1,0 +1,20 @@
+- name: Deploy PHP app in Docker container
+  hosts: testserver
+  become: yes
+
+  tasks:
+    - name: Copy project files to slave
+      copy:
+        src: ./php-app/
+        dest: /home/slave/php-app/
+    
+    - name: Build Docker image
+      command: docker build -t php-app /home/slave/php-app/
+
+    - name: Stop running container (if any)
+      shell: |
+        docker stop php-container || true
+        docker rm php-container || true
+
+    - name: Run Docker container
+      command: docker run -d -p 8080:80 --name php-container php-app
