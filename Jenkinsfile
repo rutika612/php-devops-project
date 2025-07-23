@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-username/php-devops-project.git'
+                git 'https://github.com/rutika612/php-devops-project.git'
             }
         }
 
